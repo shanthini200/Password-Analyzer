@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Analyzer - Homepage</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #141e30, #243b55);
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #1f2833;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        header nav ul li {
+            display: inline;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        header nav ul li a:hover {
+            color: #66fcf1;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 98%;
+            max-width: 1800px;
+            background: #1f2833;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            padding: 50px;
+            margin: auto;
+            flex-grow: 1;
+            height: 80%;
+           
+        }
+
+        .left-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-section h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.6;
+            text-align: left;
+        }
+        
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .analyzer-container {
+            background: #e6e7f1;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(231, 227, 227, 0.2);
+            width: 100%;
+            max-width: 700px;
+            color: #292626;
+            transition: height 0.5s ease-in-out;
+        }
+
+        .analyzer-container h1 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #17075f;
+        }
+
+        .analyzer-container p.subtitle {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1a1818;
+            font-weight: bold;
+        }
+
+        .analyzer-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #050505;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border 2s;
+        }
+
+        .analyzer-container input[type="password"]:focus {
+            border-color: #17025f;
+            box-shadow: 0 0 6px rgba(1, 3, 95, 0.4);
+        }
+
+        .strength-bar {
+            height: 12px;
+            width: 100%;
+            background: #eee9e9;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }    
+
+        .strength-bar-inner {
+            height: 100%;
+            width: 0;
+            background: red;
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+
+        .feedback {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #414344;
+            font-weight: bold;
+        }
+
+        .feedback.strong {
+            color: #137a18;
+           
+        }
+
+        .details {
+            margin-top: 20px;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .details p {
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .details .label {
+            font-weight: bold;
+        }
+
+        .details .status {
+            display: inline-block;
+            font-weight: bolder;
+            color: #c26508;
+        }
+
+        .details .status.strong {
+            color: #43a047;
+        }
+
+        .crack-time {
+            font-size: 16px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #0c1597;
+            animation: fadeIn 2s ease-out;
+        }
+        div {
+            display: block;
+            unicode-bidi: isolate;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #0b0c10;
+            color: #c5c6c7;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Password Analyzer</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="Page.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="left-section">
+            <h1>"Master Your Passwords <br>Master Your Security !"</h1>
+        </div>
+
+       
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="analyzer-container" id="password-container">
+                <h1>Password Analyzer</h1>
+                <p class="subtitle">Is your password as strong as you think ? Time to find out!</p>
+                <input type="password" id="password" placeholder="Enter your password" oninput="analyzePassword()">
+                <div class="strength-bar">
+                    <div class="strength-bar-inner" id="strength-bar"></div>
+                </div>
+                <div class="feedback" id="feedback">Start typing your password...</div>
+
+                <div class="details" id="details" style="display: none;">
+                    <p><span class="label">Password Strength :</span> <span class="status" id="strength-label">Weak</span></p>
+                    <p><span class="label">Composition :</span></p>
+                    <ul id="composition">
+                        <!-- Composition details will populate here dynamically -->
+                    </ul>
+                    <div class="crack-time" id="crack-time">Estimated time to crack: 0 seconds></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function analyzePassword() {
+            const passwordInput = document.getElementById('password');
+            const strengthBar = document.getElementById('strength-bar');
+            const feedback = document.getElementById('feedback');
+            const details = document.getElementById('details');
+            const strengthLabel = document.getElementById('strength-label');
+            const compositionList = document.getElementById('composition');
+            const crackTime = document.getElementById('crack-time');
+
+            const password = passwordInput.value;
+            const result = evaluatePassword(password);
+
+            // Update strength bar
+            strengthBar.style.width = result.score + '%';
+            strengthBar.style.background = result.color;
+
+            // Update feedback
+            feedback.textContent = result.message;
+            feedback.className = result.isStrong ? 'feedback strong' : 'feedback';
+
+            // Update details
+            if (password.length > 0) {
+                details.style.display = 'block';
+                strengthLabel.textContent = result.label;
+                strengthLabel.className = result.isStrong ? 'status strong' : 'status';
+
+                // Update composition list
+                compositionList.innerHTML = '';
+                result.composition.forEach((item) => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    compositionList.appendChild(li);
+                });
+
+                // Update crack time
+                crackTime.innerHTML = 'Estimated Time To Crack: ' + calculateCrackTime(password);
+            } else {
+                details.style.display = 'none';
+                crackTime.innerHTML = ''; // Clear crack time when password is empty
+                
+            }
+           
+   
+            
+        }
+
+        function evaluatePassword(password) {
+            let score = 0;
+            let message = 'Weak';
+            let color = 'red';
+            let isStrong = false;
+            const composition = [];
+
+            if (password.length >= 8) {
+                score += 25;
+                composition.push('✔ At least 8 characters');
+            } else {
+                composition.push('✘ At least 8 characters');
+            }
+
+            if (/[A-Z]/.test(password)) {
+                score += 25;
+                composition.push('✔ Uppercase letters');
+            } else {
+                composition.push('✘ Uppercase letters');
+            }
+
+            if (/[a-z]/.test(password)) {
+                score += 25;
+                composition.push('✔ Lowercase letters');
+            } else {
+                composition.push('✘ Lowercase letters');
+            }
+
+            if (/[0-9]/.test(password)) {
+                score += 15;
+                composition.push('✔ Numbers');
+            } else {
+                composition.push('✘ Numbers');
+            }
+
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                score += 10;
+                composition.push('✔ Special characters');
+            } else {
+                composition.push('✘ Special characters');
+            }
+
+            if (score >= 75) {
+                message = 'Strong password!';
+                color = 'green';
+                isStrong = true;
+            } else if (score >= 50) {
+                message = 'Moderate password!';
+                color = 'orange';
+            }
+
+            return {
+                score,
+                message,
+                color,
+                isStrong,
+                label: message.split(' ')[0],
+                composition
+            };
+        }
+        function calculateCrackTime(password) {
+            const complexity = Math.pow(2, password.length * 4);
+            const guessesPerSecond = 1e6; // Assume 1 million guesses per second
+            const seconds = complexity / guessesPerSecond;
+
+            if (seconds < 60) return `${Math.round(seconds)} seconds`;
+            const minutes = seconds / 60;
+            if (minutes < 60) return `${Math.round(minutes)} minutes`;
+            const hours = minutes / 60;
+            if (hours < 24) return `${Math.round(hours)} hours`;
+            const days = hours / 24;
+            if (days < 365) return `${Math.round(days)} days`;
+            const years = days / 365;
+            return `${Math.round(years)} years`;
+        }
+        passwordInput.addEventListener('input', analyzePassword);
+    </script>
+  
+    <footer>
+        <p>&copy; 2025 PasswordAnalyzer. All rights reserved.</p>
+    </footer>
+</body>
+</html>
